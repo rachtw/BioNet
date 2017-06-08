@@ -1,0 +1,63 @@
+jnull                 package:rJava                 R Documentation
+
+_J_a_v_a _n_u_l_l _o_b_j_e_c_t _r_e_f_e_r_e_n_c_e
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     '.jnull' returns a 'null' reference of a specified class type. The
+     resulting object is of the class 'jobjRef'.
+
+     'is.jnull' is an extension of 'is.null' that also returns 'TRUE'
+     if the supplied object it a 'null' Java reference.
+
+_U_s_a_g_e:
+
+     .jnull(class = "java/lang/Object")
+     is.jnull(x)
+
+_A_r_g_u_m_e_n_t_s:
+
+   class: fully qualified target class name in JNI notation (e.g.
+          '"java/lang/String"').
+
+       x: object to check
+
+_D_e_t_a_i_l_s:
+
+     '.jnull' is necesary if 'null' is to be passed as an argument of
+     '.jcall' or '.jnew', in order to be able to find the correct
+     method/constructor.
+
+     Example: given the following method definitions of the class 'A':
+
+   _o public static void run(String a);
+
+   _o public static void run(Double n);
+
+     Calling '.jcall("A",,"run",NULL)' is ambiguous, because it is
+     unclear which method is to be used. Therefore rJava requires class
+     information with each argument to '.jcall'. If we wanted to run
+     the String-version, we could use
+     '.jcall("A",,"run",.jnull("java/lang/String"))'.
+
+     'is.jnull' is a test that should be used to determine 'null'
+     reference.
+
+_V_a_l_u_e:
+
+     '.jnull' returns a Java object reference ('jobjRef') of a 'null'
+     object having the specified object class.
+
+     'is.jnull' returns 'TRUE' if 'is.null(x)' is 'TRUE' or if 'x' is a
+     Java 'null' reference.
+
+_S_e_e _A_l_s_o:
+
+     '.jcall', '.jcast'
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     .jcall("java/lang/System","I","identityHashCode",.jnull())
+     ## End(Not run)
+

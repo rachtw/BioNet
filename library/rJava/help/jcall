@@ -1,0 +1,90 @@
+jcall                 package:rJava                 R Documentation
+
+_C_a_l_l _a _J_a_v_a _m_e_t_h_o_d
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     '.jcall' calls a Java method with the supplied arguments.
+
+_U_s_a_g_e:
+
+     .jcall(obj, returnSig = "V", method, ..., evalArray = TRUE, 
+         evalString = TRUE, check = TRUE, interface = "RcallMethod")
+
+_A_r_g_u_m_e_n_t_s:
+
+     obj: Java object ('jobjRef' as returned by '.jcall' or '.jnew') or
+          fully qualified class name in JNI notation (e.g.
+          '"java/lang/String"').
+
+returnSig: Return signature in JNI notation (e.g. "V" for void, "[I"
+          for 'int[]' etc.). For convenience additional type '"S"' is
+          supported and expanded to '"Ljava/lang/String;"', re-mapping
+          '"T"' to represent the type 'short'.
+
+  method: The name of the method to be called
+
+     ...: Any parametes that will be passed to the Java method. The
+          parameter types are determined automatically and/or taken
+          from the 'jobjRef' object. All named parameters are
+          discarded.
+
+evalArray: This flag determines whether the array return value is
+          evaluated ('TRUE') or passed back as Java object reference
+          ('FALSE').
+
+evalString: This flag determines whether string result is returned as
+          characters or as Java object reference.
+
+   check: If set to 'TRUE' then checks for exceptions are performed
+          before and after the call using '.jcheck(silent=FALSE)'. This
+          is usually the desired behavior, because all calls fail until
+          an expection is cleared.
+
+interface: This option is experimental and specifies the interface used
+          for calling the Java method; the current implementation
+          supports two interfaces:
+
+        '"_R_c_a_l_l_M_e_t_h_o_d"' the default interface.
+
+        '"_R_c_a_l_l_S_y_n_c_M_e_t_h_o_d"' synchronized call of a method. This has
+             simmilar effect as using 'synchronize' in Java.
+
+_D_e_t_a_i_l_s:
+
+     '.jcall' requires exact match of argument and return types. For
+     higher efficiency '.jcall' doens't perform any lookup in the
+     reflection tables. This means that passing subclasses of the
+     classes present in the method definition requires explicit casting
+     using '.jcast'. Passing 'null' arguments also needs a proper class
+     specification with '.jnull'.
+
+     Java types 'long' and 'float' have no corresponding types in R and
+     therefore any such parameters must be flagged as such using
+     '.jfloat' and '.jlong' functions respectively.
+
+     Java also distinguishes scalar and array types whereas R doesn't
+     have the concept of a scalar. In R a scalar is basically a vector
+     (called array in Java-speak) of the length 1. Therefore passing
+     vectors of the length 1 is ambiguous. '.jcall' assumes that any
+     vector of the length 1 that corresponds to a native Java type is a
+     scalar. All other vectors are passed as arrays. Therefore it is
+     important to use '.jarray' if an arbitrary vector (including those
+     of the length 1) is to be passed as an array parameter.
+
+_V_a_l_u_e:
+
+     Returns the result of the method.
+
+_S_e_e _A_l_s_o:
+
+     '.jnew', '.jcast', '.jnull', '.jarray'
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     .jcall("java/lang/System","S","getProperty","os.name")
+     f <- .jnew("java/awt/Frame","Hello")
+     .jcall(f,,"setVisible",TRUE)
+     ## End(Not run)
+

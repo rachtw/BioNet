@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Classes "jfloat", "jlong", "jbyte" and "jchar" specify Java
+native types that are not native in R</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="../../R.css">
+</head><body>
+
+<table width="100%" summary="page for jfloat-class {rJava}"><tr><td>jfloat-class {rJava}</td><td align="right">R Documentation</td></tr></table>
+<h2>Classes "jfloat", "jlong", "jbyte" and "jchar" specify Java
+native types that are not native in R</h2>
+
+
+<h3>Description</h3>
+
+<p>
+These classes wrap a numeric vector to be treated as
+<code>float</code> or <code>long</code> argument when passed to Java and an
+integer vector to be treated as <code>byte</code> or <code>char</code>. R doesn't
+distinguish between <code>double</code> and <code>float</code>, but Java
+does. In order to satisfy object types, numeric vectors that should be
+converted to floats or long on the Java side must be wrapped in this
+class. In addition <code>jbyte</code> must be used when passing scalar byte
+(but not byte arrays, those are mapped into RAW vectors). Finally
+<code>jchar</code> it used when mapping integer vectors into unicode Java
+character vectors.
+</p>
+
+
+<h3>Objects from the Class</h3>
+
+<p>
+Objects can be created by calling <code><a href="jfloat.html">.jfloat</a></code>,
+<code><a href="jfloat.html">.jlong</a></code>, <code><a href="jfloat.html">.jbyte</a></code> or <code><a href="jfloat.html">.jchar</a></code>
+respectively.
+</p>
+
+
+<h3>Slots</h3>
+
+<dl>
+<dt><code>.Data</code>:</dt><dd>Payload</dd>
+</dl>
+
+<h3>Extends</h3>
+
+<p>
+"jfloat" and "jlong":
+Class <code>"numeric"</code>, from data part.
+Class <code>"vector"</code>, by class <code>"numeric"</code>.
+</p>
+<p>
+"jbyte" and "jchar":
+Class <code>"integer"</code>, from data part.
+Class <code>"vector"</code>, by class <code>"integer"</code>.
+</p>
+
+
+<h3>Methods</h3>
+
+<p>
+"jfloat" and "jlong" have no methods other than those inherited from "numeric".
+"jbyte" and "jchar" have no methods other than those inherited from "integer".
+</p>
+
+
+<h3>Author(s)</h3>
+
+<p>
+Simon Urbanek
+</p>
+
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="jfloat.html">.jfloat</a></code>, <code><a href="jfloat.html">.jlong</a></code>, <code><a href="jfloat.html">.jbyte</a></code>, <code><a href="jfloat.html">.jchar</a></code> and <code><a href="jcall.html">.jcall</a></code>
+</p>
+
+
+
+<hr><div align="center">[Package <em>rJava</em> version 0.4-12 <a href="00Index.html">Index]</a></div>
+
+</body></html>

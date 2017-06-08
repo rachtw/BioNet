@@ -1,0 +1,17 @@
+installing R.css in E:/R/R-2.4.1beta/share/perl/BioNet.Rcheck
+
+
+---------- Making package BioNet ------------
+  adding build stamp to DESCRIPTION
+  installing R files
+  installing demos
+  installing man source files
+  installing indices
+  installing help
+ >>> Building/Updating help pages for package 'BioNet'
+     Formats: text html latex example chm 
+  BioNet-package                    text    html    latex   example
+/bin/sh: hhc: command not found
+  adding MD5 sums
+
+* DONE (BioNet)

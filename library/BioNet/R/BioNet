@@ -1,0 +1,227 @@
+.packageName <- "BioNet"
+bionet.init <- function() {
+  library(rJava)
+  .jinit(classpath="libs/Network.jar",parameters="-client -Xmx512M -Xms512M")    
+}
+bionet.open <- function(path) {
+return(.jnew("Network",path))
+}
+bionet.save <- function(net,path="./mynetwork.sif") {
+.jcall(net,"V","writeNetworkInSIF",path)
+}
+bionet.new.random <- function(n=500,p=0.01) {
+return(.jnew("Network",as.integer(n),p))
+}
+bionet.get.vertices <- function(net) {
+return(.jcall(net,"[Ljava/lang/String;","getVertices"))
+}
+bionet.get.num.vertices <- function(net) {
+return(.jcall(net,"I","getNumVertices"))
+}
+bionet.get.num.edges <- function(net) {
+return(.jcall(net,"I","getNumEdges"))
+}
+bionet.get.vertex.by.index <- function(net,index) {
+return(.jcall(net,"Ljava/lang/String;","getNodeName",as.integer(index-1)))
+}
+bionet.get.vertices.by.indices <- function(net,indices) {
+return(.jcall(net,"[Ljava/lang/String;","getNodeName",.jarray(as.integer(indices-1))))
+}
+bionet.get.neighbors.by.distance.index <- function(net,vertex.no,distance=1) {
+return(.jcall(net,"[Ljava/lang/String;","getNeighborsWithDistance",as.integer(vertex.no-1),as.integer(distance)))
+}
+bionet.get.neighbors.by.distance.name <- function(net,vertex.name,distance=1) {
+return(.jcall(net,"[Ljava/lang/String;","getNeighborsWithDistance",as.character(vertex.name),as.integer(distance)))
+}
+bionet.get.vertices.by.degree <- function(net,degree) {
+return(.jcall(net,"[Ljava/lang/String;","getNodesWithDegree",as.integer(degree)))
+}
+bionet.adjacency.matrix <- function(net) {
+a<-.jcall(net,"[[I","getAdjacencyMatrix")
+return(sapply(a,.jevalArray))
+}
+.First.lib <- function(lib, pkg)
+{
+    require(rJava)
+    library(rJava)
+    .jinit(classpath=paste(system.file(package="BioNet"),"/Network.jar",sep=""),parameters="-client -Xmx512M -Xms512M")    
+}
+# # of triangles
+bionet.num.triangles <- function(net,adjacency.matrix=NULL) {
+  if (is.null(adjacency.matrix)) {
+    adjacency.matrix<-bionet.adjacency.matrix(net)
+  }
+  m.3 <- adjacency.matrix %*% adjacency.matrix %*% adjacency.matrix
+  
+  return(sum(diag(m.3))/6)
+}
+
+# Clustering.coefficient
+bionet.clustering.coefficient <- function(net,adjacency.matrix=NULL){
+  if (is.null(adjacency.matrix)) {
+    adjacency.matrix<-bionet.adjacency.matrix(net)
+  }
+  m.3 <- adjacency.matrix %*% adjacency.matrix %*% adjacency.matrix
+  
+  distance.list<-as.vector(bionet.distance(net))
+  return( sum(diag(m.3))/sum(distance.list==2) )
+}
+
+# Watts.Strogatz.clustering.coefficient
+bionet.WS.clustering.coefficient <- function(net,adjacency.matrix=NULL) {
+  if (is.null(adjacency.matrix)) {
+    adjacency.matrix<-bionet.adjacency.matrix(net)
+  }
+  m.3 <- adjacency.matrix %*% adjacency.matrix %*% adjacency.matrix
+
+  n<-nrow(adjacency.matrix)
+  num.triangles <- diag(m.3)/2
+  num.neighbors <- rowSums(adjacency.matrix)
+  denominator <- choose(num.neighbors,2)
+  denominator[denominator==0] <- 1
+
+  return(sum(num.triangles/denominator)/n)
+}
+bionet.degree <- function(net,adjacency.matrix=NULL) {
+if (is.null(adjacency.matrix)) {
+  adjacency.matrix<-bionet.adjacency.matrix(net)
+}
+return(rowSums(adjacency.matrix))
+}
+
+# power-law distribution
+bionet.generate.power.law.distributed.degrees <- function(max.degree=50,alpha=3) {
+return((1:max.degree)^(-(alpha-1)))
+}
+
+# exponential
+bionet.generate.exponential.distributed.degrees <- function(max.degree=50,kappa=3) {
+return(exp(-(1:max.degree)/kappa))
+}
+bionet.distance <- function(net){
+  distance <- .jcall(net,"[[I","getDistanceMatrix")
+  return(sapply(distance,.jevalArray))
+}
+
+#the mean geodesic (i.e., shortest) distance between vertex pairs in a network:
+bionet.mean.shortest.distance <- function(net,distance=NULL) {
+  if (is.null(distance)) {
+    distance<-bionet.distance(net)
+  }
+  n<-nrow(distance)
+  num.unreachable.pairs<-sum(distance==-1)/2
+  return((sum(distance)/2-num.unreachable.pairs*(-1)) / (n*(n+1)/2 - num.unreachable.pairs))
+}
+
+#the "harmonic mean" geodesic (i.e., shortest) distance between vertex pairs in a network:
+bionet.harmonic.mean.shortest.distance <- function(net,distance=NULL) {
+  if (is.null(distance)) {
+    distance<-bionet.distance(net)
+  }
+  n<-nrow(distance)
+  distance.list<-as.vector(distance)
+  #infinite & 0 distances are taken off
+  distance.list[distance.list==-1]=NA
+  distance.list[distance.list==0]=NA
+  return(sum(1/distance.list,na.rm=TRUE) / (n * (n+1) / 2))
+}
+
+#eccentricity
+bionet.eccentricity <- function(net,distance=NULL) {
+  if (is.null(distance)) {
+    distance<-bionet.distance(net)
+  }
+  return(apply(distance,1,max))
+}
+
+#diameter
+bionet.diameter <- function(net,eccentricity=NULL) {
+  if (is.null(eccentricity)) {
+    eccentricity<-bionet.eccentricity(net)
+  }
+  return(max(eccentricity))
+}
+
+#radius
+bionet.radius <- function(net,eccentricity=NULL) {
+  if (is.null(eccentricity)) {
+    eccentricity<-bionet.eccentricity(net)
+  }
+  return(min(eccentricity))
+}
+
+#graph.centrality
+bionet.graph.centrality <- function(net,eccentricity=NULL) {
+  if (is.null(eccentricity)) {
+    eccentricity<-bionet.eccentricity(net)
+  }
+  graph.centrality=1/eccentricity
+  graph.centrality[is.na(graph.centrality)]=0
+  return(graph.centrality)
+}
+
+#radiality
+bionet.radiality <- function(net,distance=NULL) {
+  if (is.null(distance)) {
+    distance<-bionet.distance(net)
+  }
+  max.distance<-max(distance)
+  n<-nrow(distance)
+  num.unreachable.nodes<-rowSums(distance==-1)
+  return( (n-num.unreachable.nodes)*(max.distance+1)/(n-1)/max.distance
+  	-(rowSums(distance)+num.unreachable.nodes)/(n-1)/max.distance )
+}
+
+#closeness
+bionet.closeness <- function(net,distance=NULL) {
+  if (is.null(distance)) {
+    distance<-bionet.distance(net)
+  }
+  return(1/(rowSums(distance)+rowSums(distance==-1)))
+}
+
+#get vertex betweennesses
+bionet.get.vertex.betweenness <- function(net) {
+  return(.jcall(net,"[I","getVertexBetweenness"))
+}
+
+#query the shortest paths between a pair of nodes
+bionet.get.shortest.path.by.index <- function(net,i,j) {
+  return(.jcall(net,"[Ljava/lang/String;","getShortestPath",as.integer(i-1),as.integer(j-1)))
+}
+
+bionet.get.shortest.path.by.name <- function(net,i,j) {
+  return(.jcall(net,"[Ljava/lang/String;","getShortestPath",as.character(i),as.character(j)))
+}
+# histogram with bins of exponentially increasing sizes
+bionet.hist.with.exp.bins <- function(data, main="") {
+  m<-max(data)
+  b<-c(1)
+  i<-0
+  while (1) {
+  	if ( (j<-b[length(b)]+2^i) > m )
+  		break
+  	b<-c(b,j)
+        i<-i+1
+  }
+  b<-c(b,m)
+  b<-c(0,b)
+  hist(data,br=b,main=main)
+}
+
+# double logarithmic cumulative distribution
+bionet.double.log.ecdf.plot <- function(data, name="data", main="") {
+  m<-max(data)
+  cdata <- numeric(m)
+  n <- length(data)
+  for (i in 1:m) {
+  	cdata[i] <- sum(table(data)[as.character(1:(m-i+1))],na.rm=TRUE) / n
+  }
+  if (main!="") main=paste(" of ",main)
+  plot(log(1:max(data)),log(cdata),type="l",xlab=paste("log(",name,")"),ylab="log(p)",main=c("Doublely logarithmic cumulative distribution",main))
+}
+
+# nodes with top measures
+bionet.nodes.of.top.measures <- function(net,measures,percent=0.1) {
+  return( bionet.get.vertices.by.indices(net,c(1:length(measures))[measures>=(1-percent)*max(measures)]) )
+}

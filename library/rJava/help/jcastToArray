@@ -1,0 +1,76 @@
+jcastToArray              package:rJava              R Documentation
+
+_E_n_s_u_r_e_s _t_h_a_t _a _g_i_v_e_n _o_b_j_e_c_t _i_s _a_n _a_r_r_a_y _r_e_f_e_r_e_n_c_e
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     '.jcastToArray' takes a Java object reference of any kind and
+     returns Java array reference if the given object is a reference to
+     an array.
+
+_U_s_a_g_e:
+
+     .jcastToArray(obj, signature=NULL, class="", quiet=FALSE)
+
+_A_r_g_u_m_e_n_t_s:
+
+     obj: Java object reference to cast or a scalar vector
+
+signature: array signature in JNI notation (e.g. '"[I"' for an array of
+          integers). If set to 'NULL' (the default), the signature is
+          automatically determined from the object's class.
+
+   class: force the result to pose as a particular Java class. This has
+          the same effect as using '.jcast' on the result and is
+          provided for convenience only.
+
+   quiet: if set to 'TRUE', no failures are reported and the original
+          object is returned unmodified.
+
+_D_e_t_a_i_l_s:
+
+     Sometimes a result of a method is by definition of the class
+     'java.lang.Object', but the acutal referenced object may be an
+     array. In that case the method returns a Java object reference
+     instead of an array reference. In order to obtain an array
+     reference, it is necessary to cast such an object to an array
+     reference - this is done using the above '.jcastToArray' function.
+
+     The input is an object reference that points to an array. Ususally
+     the signature should be left at 'NULL' such that it is determined
+     from the object's class. This is also a check, because if the
+     object's class is not an array, then the functions fails either
+     with an error (when 'quiet=FALSE') or by returing the original
+     object (when 'quiet=TRUE'). If the signature is set to anything
+     else, it is not verified and the array reference is always
+     created, even if it may be invalid and unusable.
+
+     For convenience '.jcastToArray' also accepts non-references in
+     which case it simply calls '.jarray', ignoring all other
+     parameters.
+
+_V_a_l_u_e:
+
+     Returns a Java array reference ('jarrayRef') on success. If
+     'quiet' is 'TRUE' then the result can also be the original object
+     in the case of failure.
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     a <- .jarray(1:10)
+     print(a)
+     # let's create an array containing the array
+     aa <- .jarray(list(a))
+     print(aa)
+     ba <- .jevalArray(aa)[[1]]
+     # it is NOT the inverse, because .jarray works on a list of objects
+     print(ba)
+     # so we need to cast the object into an array
+     b <- .jcastToArray(ba)
+     # only now a and b are the same array reference
+     print(b)
+     # for convenience .jcastToArray behaves like .jarray for non-references
+     print(.jcastToArray(1:10/2))
+     ## End(Not run)
+

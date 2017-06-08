@@ -1,0 +1,37 @@
+\HeaderA{JavaAccess}{Field/method operator for Java objects}{JavaAccess}
+\aliasA{\$,jobjRef-method}{JavaAccess}{.Rdol.,jobjRef.Rdash.method}
+\aliasA{\$<-,jobjRef-method}{JavaAccess}{.Rdol.<.Rdash.,jobjRef.Rdash.method}
+\keyword{interface}{JavaAccess}
+\begin{Description}\relax
+The \code{\$} operator for \code{jobjRef} Java object references provides convenience access to object attributes and calling Java methods.
+\end{Description}
+\begin{Details}\relax
+rJava provies two levels of API: low-level JNI-API in the form of \code{\LinkA{.jcall}{.jcall}} function and high-level reflection API based on the \code{\$} operator. The former is very fast, but inflexible. The latter is a convenient way to use Java-like programming at the cost of performance. The reflection API is build around the \code{\$} operator on \code{\LinkA{jobjRef-class}{jobjRef.Rdash.class}} objects that allows to access Java attributes and call object methods.
+
+\code{\$} returns either the value of the attribute or calls a method, depending on which name matches first.
+
+\code{\$<-} assigns a value to the corresponding Java attribute.
+
+This is just a convenience API. Internally all calls are mapped into \code{\LinkA{.jcall}{.jcall}} calls, therefore the calling conventions and returning objects use the smae rules. For time-critical Java calls \code{\LinkA{.jcall}{.jcall}} should be used directly.
+
+NOTE: This interface is still very experimental! Some type conversions may not work or it may fail to find the method you want. You may need to use \code{\LinkA{.jcall}{.jcall}}, consult \code{\LinkA{.jmethods}{.jmethods}}, \code{\LinkA{.jfields}{.jfields}} and possibly apply \code{\LinkA{.jcast}{.jcast}} in such cases. If it is a general problem, please report such issues whith a small reproducible example.
+\end{Details}
+\begin{Section}{Methods}
+\describe{
+\item[\code{\$}] \code{signature(x = "jobjRef")}: ... 
+\item[\code{\$<-}] \code{signature(x = "jobjRef")}: ... 
+}
+\end{Section}
+\begin{SeeAlso}\relax
+\code{\LinkA{.jcall}{.jcall}}, \code{\LinkA{.jnew}{.jnew}}, \code{\LinkA{jobjRef-class}{jobjRef.Rdash.class}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+v <- .jnew("java/lang/String","Hello World!")
+v$length()
+v$indexOf("World")
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+

@@ -1,0 +1,107 @@
+Entry: JavaAccess
+Aliases: $,jobjRef-method $<-,jobjRef-method
+Keywords: interface
+Description: Field/method operator for Java objects
+URL: ../../../library/rJava/html/accessOp.html
+
+Entry: jarray
+Aliases: .jarray .jevalArray
+Keywords: interface
+Description: Java array handling functions
+URL: ../../../library/rJava/html/jarray.html
+
+Entry: jarrayRef-class
+Aliases: jarrayRef-class
+Keywords: classes
+Description: Class "jarrayRef" Reference to an array Java object
+URL: ../../../library/rJava/html/jarrayRef-class.html
+
+Entry: jcall
+Aliases: .jcall
+Keywords: interface
+Description: Call a Java method
+URL: ../../../library/rJava/html/jcall.html
+
+Entry: jcast
+Aliases: .jcast
+Keywords: interface
+Description: Cast a Java object to another class
+URL: ../../../library/rJava/html/jcast.html
+
+Entry: jcastToArray
+Aliases: .jcastToArray
+Keywords: interface
+Description: Ensures that a given object is an array reference
+URL: ../../../library/rJava/html/jcastToArray.html
+
+Entry: jcheck
+Aliases: .jcheck .jthrow .jclear .jgetEx
+Keywords: interface
+Description: Java exception handling
+URL: ../../../library/rJava/html/jcheck.html
+
+Entry: jequals
+Aliases: .jequals !=,ANY,jobjRef-method !=,jobjRef,jobjRef-method !=,jobjRef,ANY-method ==,ANY,jobjRef-method ==,jobjRef,jobjRef-method ==,jobjRef,ANY-method
+Keywords: interface
+Description: Comparing Java References
+URL: ../../../library/rJava/html/jequals.html
+
+Entry: jfiled
+Aliases: .jfield
+Keywords: interface
+Description: Obtains the value of a field
+URL: ../../../library/rJava/html/jfield.html
+
+Entry: jfloat-class
+Aliases: jfloat-class jlong-class jbyte-class jchar-class
+Keywords: classes
+Description: Classes "jfloat", "jlong", "jbyte" and "jchar" specify Java native types that are not native in R
+URL: ../../../library/rJava/html/jfloat-class.html
+
+Entry: jfloat
+Aliases: .jfloat .jlong .jbyte .jchar jfloat jlong jbyte jchar
+Keywords: interface
+Description: Wrap numeric vector as flat Java parameter
+URL: ../../../library/rJava/html/jfloat.html
+
+Entry: jinit
+Aliases: .jinit
+Keywords: interface
+Description: Initialize Java VM
+URL: ../../../library/rJava/html/jinit.html
+
+Entry: jnew
+Aliases: .jnew
+Keywords: interface
+Description: Create a Java object
+URL: ../../../library/rJava/html/jnew.html
+
+Entry: jnull
+Aliases: .jnull is.jnull
+Keywords: interface
+Description: Java null object reference
+URL: ../../../library/rJava/html/jnull.html
+
+Entry: jobjRef-class
+Aliases: jobjRef-class
+Keywords: classes
+Description: Class "jobjRef" - Reference to a Java object
+URL: ../../../library/rJava/html/jobjRef-class.html
+
+Entry: jreflection
+Aliases: .jmethods .jfields .jconstructors
+Keywords: interface
+Description: Simple helper functions for Java reflection
+URL: ../../../library/rJava/html/jreflection.html
+
+Entry: jsimplify
+Aliases: .jsimplify
+Keywords: interface
+Description: Converts Java object to a simple scalar if possible
+URL: ../../../library/rJava/html/jsimplify.html
+
+Entry: show
+Aliases: show,jobjRef-method show,jarrayRef-method
+Keywords: interface
+Description: Show a Java Object Reference
+URL: ../../../library/rJava/html/show.html

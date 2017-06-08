@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Call a Java method</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="../../R.css">
+</head><body>
+
+<table width="100%" summary="page for jcall {rJava}"><tr><td>jcall {rJava}</td><td align="right">R Documentation</td></tr></table>
+<h2>Call a Java method</h2>
+
+
+<h3>Description</h3>
+
+<p>
+<code>.jcall</code> calls a Java method with the supplied arguments.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+.jcall(obj, returnSig = "V", method, ..., evalArray = TRUE, 
+    evalString = TRUE, check = TRUE, interface = "RcallMethod")
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>obj</code></td>
+<td>
+Java object (<code>jobjRef</code> as returned by
+<code><a href="jcall.html">.jcall</a></code> or <code><a href="jnew.html">.jnew</a></code>) or fully qualified
+class name in JNI notation (e.g. <code>"java/lang/String"</code>).</td></tr>
+<tr valign="top"><td><code>returnSig</code></td>
+<td>
+Return signature in JNI notation (e.g. "V" for void,
+"[I" for <code>int[]</code> etc.). For convenience additional type
+<code>"S"</code> is supported and expanded to
+<code>"Ljava/lang/String;"</code>, re-mapping <code>"T"</code> to represent the
+type <code>short</code>.</td></tr>
+<tr valign="top"><td><code>method</code></td>
+<td>
+The name of the method to be called</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+Any parametes that will be passed to the Java method. The parameter
+types are determined automatically and/or taken from the
+<code>jobjRef</code> object. All named parameters are discarded.</td></tr>
+<tr valign="top"><td><code>evalArray</code></td>
+<td>
+This flag determines whether the array return value
+is evaluated (<code>TRUE</code>) or passed back as Java object reference
+(<code>FALSE</code>).</td></tr>
+<tr valign="top"><td><code>evalString</code></td>
+<td>
+This flag determines whether string result is returned
+as characters or as Java object reference.</td></tr>
+<tr valign="top"><td><code>check</code></td>
+<td>
+If set to <code>TRUE</code> then checks for exceptions are
+performed before and after the call using
+<code><a href="jcheck.html">.jcheck</a>(silent=FALSE)</code>. This is usually the desired
+behavior, because all calls fail until an expection is cleared.</td></tr>
+<tr valign="top"><td><code>interface</code></td>
+<td>
+This option is experimental and specifies the
+interface used for calling the Java method; the current
+implementation supports two interfaces:
+<ul>
+<dt><code>"RcallMethod"</code></dt><dd>the default interface.</dd>
+<dt><code>"RcallSyncMethod"</code></dt><dd>synchronized call of a
+method. This has simmilar effect as using <code>synchronize</code> in
+Java.</dd>
+</ul>
+</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+<code>.jcall</code> requires exact match of argument and return types. For
+higher efficiency <code>.jcall</code> doens't perform any lookup in the
+reflection tables. This means that passing subclasses of the classes
+present in the method definition requires explicit casting using
+<code><a href="jcast.html">.jcast</a></code>. Passing <code>null</code> arguments also needs a
+proper class specification with <code><a href="jnull.html">.jnull</a></code>.
+</p>
+<p>
+Java types <code>long</code> and <code>float</code> have no corresponding types in
+R and therefore any such parameters must be flagged as such using
+<code><a href="jfloat.html">.jfloat</a></code> and <code><a href="jfloat.html">.jlong</a></code> functions respectively.
+</p>
+<p>
+Java also distinguishes scalar and array types whereas R doesn't have
+the concept of a scalar. In R a scalar is basically a vector (called
+array in Java-speak) of the length 1. Therefore passing vectors of the
+length 1 is ambiguous. <code>.jcall</code> assumes that any vector of the
+length 1 that corresponds to a native Java type is a scalar. All other
+vectors are passed as arrays. Therefore it is important to use
+<code><a href="jarray.html">.jarray</a></code> if an arbitrary vector (including those of the
+length 1) is to be passed as an array parameter.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+Returns the result of the method.</p>
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="jnew.html">.jnew</a></code>, <code><a href="jcast.html">.jcast</a></code>, <code><a href="jnull.html">.jnull</a></code>,
+<code><a href="jarray.html">.jarray</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+.jcall("java/lang/System","S","getProperty","os.name")
+f &lt;- .jnew("java/awt/Frame","Hello")
+.jcall(f,,"setVisible",TRUE)
+## End(Not run)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>rJava</em> version 0.4-12 <a href="00Index.html">Index]</a></div>
+
+</body></html>

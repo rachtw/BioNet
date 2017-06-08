@@ -1,0 +1,17 @@
+show                  package:rJava                  R Documentation
+
+_S_h_o_w _a _J_a_v_a _O_b_j_e_c_t _R_e_f_e_r_e_n_c_e
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     Display a Java object reference in a descriptive, textual form.
+     The default implementation calls 'toString' Java method to obtain
+     object's printable value and uses calls 'show' on the resulting
+     string garnished with additional details.
+
+_M_e_t_h_o_d_s:
+
+     _s_h_o_w 'signature(object = "jobjRef")': ... 
+
+     _s_h_o_w 'signature(object = "jarrayRef")': ... 
+

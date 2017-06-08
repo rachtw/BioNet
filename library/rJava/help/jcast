@@ -1,0 +1,45 @@
+jcast                 package:rJava                 R Documentation
+
+_C_a_s_t _a _J_a_v_a _o_b_j_e_c_t _t_o _a_n_o_t_h_e_r _c_l_a_s_s
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     '.jcast' returns a Java object reference cast to another Java
+     class.
+
+_U_s_a_g_e:
+
+     .jcast(obj, new.class = "java/lang/Object")
+
+_A_r_g_u_m_e_n_t_s:
+
+     obj: a Java object reference
+
+new.class: fully qualified class name in JNI notation (e.g.
+          '"java/lang/String"'). Although rJava itself performs no type
+          check in '.jcast', Java will produce an exception on the
+          first use if the cast is illegal.
+
+_D_e_t_a_i_l_s:
+
+     This function is necessary if a argument of '.jcall' or '.jnew' is
+     defined as the superclass of the object to be passed. (See
+     '.jcall') No type check is performed and the original object is
+     not modified.
+
+_V_a_l_u_e:
+
+     Returns a Java object reference ('jobjRef') to the object 'obj',
+     changing the object class.
+
+_S_e_e _A_l_s_o:
+
+     '.jcall'
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     v <- .jnew("java/util/Vector")
+     .jcall("java/lang/System","I","identityHashCode",.jcast(v, "java/lang/Object"))
+     ## End(Not run)
+

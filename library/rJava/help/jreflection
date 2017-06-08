@@ -1,0 +1,51 @@
+jreflection              package:rJava              R Documentation
+
+_S_i_m_p_l_e _h_e_l_p_e_r _f_u_n_c_t_i_o_n_s _f_o_r _J_a_v_a _r_e_f_l_e_c_t_i_o_n
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     '.jconstructors' returns a character vector with all constructors
+     for a given class or object. '.jmethods' returns a character
+     vector with all methods for a given class or object. '.jfields'
+     returns a character vector with all fileds (aka attributes) for a
+     given class or object.
+
+_U_s_a_g_e:
+
+     .jconstructors(o)
+     .jmethods(o, name = NULL)
+     .jfields(o)
+
+_A_r_g_u_m_e_n_t_s:
+
+       o: Name of a class (either notation is fine) or an object whose
+          class will be queried
+
+    name: Name of the method to look for. May contain regular
+          expressions except for '^$'.
+
+_D_e_t_a_i_l_s:
+
+     There first two functions are intended to help with finding
+     correct signatures for methods and constructors. Since the
+     low-level API in rJava doesn't use reflection automatically, it is
+     necessary to provide a proper signature. That is somewhat easier
+     using the above methods.
+
+_V_a_l_u_e:
+
+     Returns a character vector. Each entry corresponds to 'toString()'
+     call on the 'Constructor' resp. 'Method' resp. 'Field' object.
+
+_S_e_e _A_l_s_o:
+
+     '.jcall', '.jnew', '.jcast' or '$,jobjRef-method'
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     .jconstructors("java/util/Vector")
+     v <- .jnew("java/util/Vector")
+     .jmethods(v, "add")
+     ## End(Not run)
+

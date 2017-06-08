@@ -1,0 +1,23 @@
+$,jobjRef-method        Field/method operator for Java objects
+.jarray                 Java array handling functions
+.jcall                  Call a Java method
+.jcast                  Cast a Java object to another class
+.jcastToArray           Ensures that a given object is an array
+                        reference
+.jcheck                 Java exception handling
+.jequals                Comparing Java References
+.jfield                 Obtains the value of a field
+.jinit                  Initialize Java VM
+.jmethods               Simple helper functions for Java reflection
+.jnew                   Create a Java object
+.jnull                  Java null object reference
+.jsimplify              Converts Java object to a simple scalar if
+                        possible
+jarrayRef-class         Class "jarrayRef" Reference to an array Java
+                        object
+jfloat                  Wrap numeric vector as flat Java parameter
+jfloat-class            Classes "jfloat", "jlong", "jbyte" and "jchar"
+                        specify Java native types that are not native
+                        in R
+jobjRef-class           Class "jobjRef" - Reference to a Java object
+show,jobjRef-method     Show a Java Object Reference

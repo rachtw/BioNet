@@ -1,0 +1,79 @@
+jarray                 package:rJava                 R Documentation
+
+_J_a_v_a _a_r_r_a_y _h_a_n_d_l_i_n_g _f_u_n_c_t_i_o_n_s
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     '.jarray' takes a vector (or a list of Java references) as its
+     argument, creates a Java array containing the elements of the
+     vector (or list) and returns a reference to such newly created
+     array.
+
+     '.jevalArray' takes a reference to a Java array and returns its
+     contents (if possible).
+
+_U_s_a_g_e:
+
+     .jarray(x, contents.class = NULL)
+     .jevalArray(obj, rawJNIRefSignature = NULL, silent = FALSE)
+
+_A_r_g_u_m_e_n_t_s:
+
+       x: vector or a list of Java references
+
+contents.class: common class of the contained objects, see details
+
+     obj: Java object reference to an array that is to be evaluated
+
+rawJNIRefSignature: JNI signature that whould be used for conversion.
+          If set to 'NULL', the signature is detected automatically.
+
+  silent: if set to true, warnings are suppressed
+
+_D_e_t_a_i_l_s:
+
+     '.jarray': The input can be either a vector of some sort (such as
+     numeric, integer, logical, ...) or a list of Java references. The
+     contents is pushed to the Java side and a corresponding array is
+     created. The type of the array depends on the input vector type.
+     For example numeric vector creates 'double[]' array, integer
+     vector creates 'int[]' array, character vector 'String[]' array
+     and so on. If 'x' is a list, it must contain Java references only
+     (or 'NULL's which will be treaded as 'NULL' references).
+
+     The 'contents.class' parameter is used only if 'x' is a list of
+     Java object references and it can specify the class that will be
+     used for all objects in the array. If set to 'NULL' no assumption
+     is made and 'java/lang/Object' will be used. Use with care and
+     only if you know what you're doing - you can always use '.jcast'
+     to cast the entire array to another type even if you use a more
+     general object type.
+
+     The result is a reference to the newly created array.
+
+     The inverse function which fetches the elements of an array
+     reference is '.jevalArray'.
+
+     '.jevalArray' currently supports only a subset of all possible
+     array types. Recursive arrays are handled by returning a list of
+     references which can then be evaluated separately.
+
+_V_a_l_u_e:
+
+     '.jarray' returns a Java array reference ('jarrayRef') to an array
+     created with the supplied contents.
+
+     '.jevalArray' returns the contents of the array object.
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     a <- .jarray(1:10)
+     print(a)
+     .jevalArray(a)
+     b <- .jarray(c("hello","world"))
+     print(b)
+     c <- .jarray(list(a,b))
+     print(c)
+     ## End(Not run)
+

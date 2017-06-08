@@ -1,0 +1,45 @@
+\HeaderA{jfiled}{Obtains the value of a field}{jfiled}
+\aliasA{.jfield}{jfiled}{.jfield}
+\keyword{interface}{jfiled}
+\begin{Description}\relax
+\code{.jfield} returns the value of the specified field on an object.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+.jfield(o, name, simplify=TRUE, true.class=TRUE)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{o}] Class name or object (Java reference) whose field is to be
+accessed. Static fields are supported both by specifying the class
+name or using an instance.
+\item[\code{name}] name of the field to access
+\item[\code{simplify}] field accessor methods always return Java objects. If
+set to \code{TRUE}, such object will be converted to scalar type if
+possible (see \code{\LinkA{.jsimplify}{.jsimplify}}).
+\item[\code{true.class}] field accessor methods always return objects of the
+class \code{java.lang.Object}. If set to \code{TRUE}, the true Java
+class is determined and the returned object's class will be
+adjusted.
+\end{ldescription}
+\end{Arguments}
+\begin{Details}\relax
+\code{.jfield} uses reflection to access value of a field of a given
+object.
+\end{Details}
+\begin{Value}
+Contents of the field.
+\end{Value}
+\begin{SeeAlso}\relax
+\code{\LinkA{.jnew}{.jnew}}, \code{\LinkA{.jsimplify}{.jsimplify}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+z <- .jnew("java/lang/Boolean", TRUE)
+.jfield(z, "TYPE")
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+

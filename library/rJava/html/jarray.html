@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Java array handling functions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="../../R.css">
+</head><body>
+
+<table width="100%" summary="page for jarray {rJava}"><tr><td>jarray {rJava}</td><td align="right">R Documentation</td></tr></table>
+<h2>Java array handling functions</h2>
+
+
+<h3>Description</h3>
+
+<p>
+<code>.jarray</code> takes a vector (or a list of Java references) as its
+argument, creates a Java array containing the elements of the vector
+(or list) and returns a reference to such newly created array.
+</p>
+<p>
+<code>.jevalArray</code> takes a reference to a Java array and returns its
+contents (if possible).
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+.jarray(x, contents.class = NULL)
+.jevalArray(obj, rawJNIRefSignature = NULL, silent = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>x</code></td>
+<td>
+vector or a list of Java references</td></tr>
+<tr valign="top"><td><code>contents.class</code></td>
+<td>
+common class of the contained objects, see
+details</td></tr>
+<tr valign="top"><td><code>obj</code></td>
+<td>
+Java object reference to an array that is to be evaluated</td></tr>
+<tr valign="top"><td><code>rawJNIRefSignature</code></td>
+<td>
+JNI signature that whould be used for
+conversion. If set to <code>NULL</code>, the signature is detected
+automatically.</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+if set to true, warnings are suppressed</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+<code>.jarray</code>: The input can be either a vector of some sort (such as
+numeric, integer, logical, ...) or a list of Java references. The
+contents is pushed to the Java side and a corresponding array is
+created. The type of the array depends on the input vector type. For
+example numeric vector creates <code>double[]</code> array, integer vector
+creates <code>int[]</code> array, character vector <code>String[]</code> array and
+so on. If <code>x</code> is a list, it must contain Java references only (or
+<code>NULL</code>s which will be treaded as <code>NULL</code> references).
+</p>
+<p>
+The <code>contents.class</code> parameter is used only if <code>x</code> is a list
+of Java object references and it can specify the class that will be
+used for all objects in the array. If set to <code>NULL</code> no assumption
+is made and <code>java/lang/Object</code> will be used. Use with care and
+only if you know what you're doing - you can always use
+<code><a href="jcast.html">.jcast</a></code> to cast the entire array to another type even if
+you use a more general object type.
+</p>
+<p>
+The result is a reference to the newly created array.
+</p>
+<p>
+The inverse function which fetches the elements of an array reference
+is <code>.jevalArray</code>.
+</p>
+<p>
+<code>.jevalArray</code> currently supports only a subset of all possible
+array types. Recursive arrays are handled by returning a list of
+references which can then be evaluated separately.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+<code>.jarray</code> returns a Java array reference (<code>jarrayRef</code>) to an
+array created with the supplied contents.
+<br>
+<code>.jevalArray</code> returns the contents of the array object.</p>
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+a &lt;- .jarray(1:10)
+print(a)
+.jevalArray(a)
+b &lt;- .jarray(c("hello","world"))
+print(b)
+c &lt;- .jarray(list(a,b))
+print(c)
+## End(Not run)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>rJava</em> version 0.4-12 <a href="00Index.html">Index]</a></div>
+
+</body></html>

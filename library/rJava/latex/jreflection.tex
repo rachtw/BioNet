@@ -1,0 +1,50 @@
+\HeaderA{jreflection}{Simple helper functions for Java reflection}{jreflection}
+\aliasA{.jconstructors}{jreflection}{.jconstructors}
+\aliasA{.jfields}{jreflection}{.jfields}
+\aliasA{.jmethods}{jreflection}{.jmethods}
+\keyword{interface}{jreflection}
+\begin{Description}\relax
+\code{.jconstructors} returns a character vector with all constructors for
+a given class or object.
+\code{.jmethods} returns a character vector with all methods for
+a given class or object.
+\code{.jfields} returns a character vector with all fileds (aka attributes) for a given class or object.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+.jconstructors(o)
+.jmethods(o, name = NULL)
+.jfields(o)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{o}] Name of a class (either notation is fine) or an object whose
+class will be queried
+\item[\code{name}] Name of the method to look for. May contain regular
+expressions except for \code{\textasciicircum{}\$}.
+\end{ldescription}
+\end{Arguments}
+\begin{Details}\relax
+There first two functions are intended to help with finding correct
+signatures for methods and constructors. Since the low-level API in rJava doesn't use reflection automatically, it is necessary to provide a proper
+signature. That is somewhat easier using the above methods.
+\end{Details}
+\begin{Value}
+Returns a character vector. Each entry corresponds to
+\code{toString()} call on the \code{Constructor} resp. \code{Method} resp. \code{Field}
+object.
+\end{Value}
+\begin{SeeAlso}\relax
+\code{\LinkA{.jcall}{.jcall}}, \code{\LinkA{.jnew}{.jnew}}, \code{\LinkA{.jcast}{.jcast}} or \code{\LinkA{\$,jobjRef-method}{.Rdol.,jobjRef.Rdash.method}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+.jconstructors("java/util/Vector")
+v <- .jnew("java/util/Vector")
+.jmethods(v, "add")
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+

@@ -1,0 +1,47 @@
+\HeaderA{jnew}{Create a Java object}{jnew}
+\aliasA{.jnew}{jnew}{.jnew}
+\keyword{interface}{jnew}
+\begin{Description}\relax
+\code{.jnew} create a new Java object
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+.jnew(class, ..., check=TRUE, silent=!check)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{class}] fully qualified class name in JNI notation (e.g. \code{"java/lang/String"}).
+\item[\code{...}] Any parametes that will be passed to the corresponding
+constructor. The parameter types are determined automatically and/or
+taken from the \code{jobjRef} object. For details see
+\code{\LinkA{.jcall}{.jcall}}. Note that all named parameters are discarded.
+\item[\code{check}] If set to \code{TRUE} then \code{\LinkA{.jcheck}{.jcheck}} is invoked before
+and after the call to the constructor to clear any pending Java
+exceptions.
+\item[\code{silent}] If set to \code{FALSE} then \code{.jnew} will fail with an error if
+the object cannot be created, otherwise a null-reference is returned
+instead. In addition, this flag is also passed to final
+\code{.jcheck} if \code{check} above is set to \code{TRUE}. Note
+that the error handling also clears exceptions, so
+\code{check=FALSE, silent=FALSE} is usually not a meaningful
+combination.
+
+\end{ldescription}
+\end{Arguments}
+\begin{Value}
+Returns the reference (\code{jobjRef}) to the newly created object or
+\code{null}-reference (see \code{\LinkA{.jnull}{.jnull}}) if something went wrong.
+\end{Value}
+\begin{SeeAlso}\relax
+\code{\LinkA{.jcall}{.jcall}}, \code{\LinkA{.jnull}{.jnull}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+f <- .jnew("java/awt/Frame","Hello")
+.jcall(f,,"setVisible",TRUE)
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+

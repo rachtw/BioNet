@@ -1,0 +1,42 @@
+\HeaderA{jcast}{Cast a Java object to another class}{jcast}
+\aliasA{.jcast}{jcast}{.jcast}
+\keyword{interface}{jcast}
+\begin{Description}\relax
+\code{.jcast} returns a Java object reference cast to another Java class.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+.jcast(obj, new.class = "java/lang/Object")
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{obj}] a Java object reference
+\item[\code{new.class}] fully qualified class name in JNI notation
+(e.g. \code{"java/lang/String"}). Although rJava itself performs no
+type check in \code{.jcast}, Java will produce an exception on the
+first use if the cast is illegal.
+\end{ldescription}
+\end{Arguments}
+\begin{Details}\relax
+This function is necessary if a argument of \code{\LinkA{.jcall}{.jcall}} or
+\code{\LinkA{.jnew}{.jnew}} is defined as the superclass of the object to be
+passed. (See \code{\LinkA{.jcall}{.jcall}}) No type check is performed and the
+original object is not modified.
+\end{Details}
+\begin{Value}
+Returns a Java object reference (\code{jobjRef}) to the object
+\code{obj}, changing the object class.
+\end{Value}
+\begin{SeeAlso}\relax
+\code{\LinkA{.jcall}{.jcall}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+v <- .jnew("java/util/Vector")
+.jcall("java/lang/System","I","identityHashCode",.jcast(v, "java/lang/Object"))
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+

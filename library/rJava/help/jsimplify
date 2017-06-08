@@ -1,0 +1,47 @@
+jsimplify               package:rJava               R Documentation
+
+_C_o_n_v_e_r_t_s _J_a_v_a _o_b_j_e_c_t _t_o _a _s_i_m_p_l_e _s_c_a_l_a_r _i_f _p_o_s_s_i_b_l_e
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     '.jsimplify' attempts to convert Java objects that represent
+     simple scalars into corresponding scalar representation in R.
+
+_U_s_a_g_e:
+
+     .jsimplify(o)
+
+_A_r_g_u_m_e_n_t_s:
+
+       o: arbitrary object
+
+_D_e_t_a_i_l_s:
+
+     If 'o' is not a Java object reference, 'o' is returned as-is. If
+     'o' is a reference to a scalar object (such as single integer,
+     number, string or boolean) then the value of that object is
+     returned as R vector of the corresponding type and length one.
+
+     This function is used by '.jfield' to simplify the results of
+     field access if required.
+
+     Currently there is no function inverse to this, the usual way to
+     wrap scalar values in Java references is to use '.jnew' as the
+     corresponding constructor.
+
+_V_a_l_u_e:
+
+     Simple scalar or 'o' unchanged.
+
+_S_e_e _A_l_s_o:
+
+     '.jfield'
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     i <- .jnew("java/lang/Integer", as.integer(10))
+     print(i)
+     print(.jsimplify(i))
+     ## End(Not run)
+

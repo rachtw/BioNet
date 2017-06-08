@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Simple helper functions for Java reflection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="../../R.css">
+</head><body>
+
+<table width="100%" summary="page for jreflection {rJava}"><tr><td>jreflection {rJava}</td><td align="right">R Documentation</td></tr></table>
+<h2>Simple helper functions for Java reflection</h2>
+
+
+<h3>Description</h3>
+
+<p>
+<code>.jconstructors</code> returns a character vector with all constructors for
+a given class or object.
+<code>.jmethods</code> returns a character vector with all methods for
+a given class or object.
+<code>.jfields</code> returns a character vector with all fileds (aka attributes) for a given class or object.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+.jconstructors(o)
+.jmethods(o, name = NULL)
+.jfields(o)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>o</code></td>
+<td>
+Name of a class (either notation is fine) or an object whose
+class will be queried</td></tr>
+<tr valign="top"><td><code>name</code></td>
+<td>
+Name of the method to look for. May contain regular
+expressions except for <code>^$</code>.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+There first two functions are intended to help with finding correct
+signatures for methods and constructors. Since the low-level API in rJava doesn't use reflection automatically, it is necessary to provide a proper
+signature. That is somewhat easier using the above methods.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+Returns a character vector. Each entry corresponds to
+<code>toString()</code> call on the <code>Constructor</code> resp. <code>Method</code> resp. <code>Field</code>
+object.</p>
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="jcall.html">.jcall</a></code>, <code><a href="jnew.html">.jnew</a></code>, <code><a href="jcast.html">.jcast</a></code> or <code><a href="accessOp.html">$,jobjRef-method</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+.jconstructors("java/util/Vector")
+v &lt;- .jnew("java/util/Vector")
+.jmethods(v, "add")
+## End(Not run)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>rJava</em> version 0.4-12 <a href="00Index.html">Index]</a></div>
+
+</body></html>

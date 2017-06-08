@@ -1,0 +1,49 @@
+jfloat-class              package:rJava              R Documentation
+
+_C_l_a_s_s_e_s "_j_f_l_o_a_t", "_j_l_o_n_g", "_j_b_y_t_e" _a_n_d "_j_c_h_a_r" _s_p_e_c_i_f_y _J_a_v_a
+_n_a_t_i_v_e _t_y_p_e_s _t_h_a_t _a_r_e _n_o_t _n_a_t_i_v_e _i_n _R
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     These classes wrap a numeric vector to be treated as 'float' or
+     'long' argument when passed to Java and an integer vector to be
+     treated as 'byte' or 'char'. R doesn't distinguish between
+     'double' and 'float', but Java does. In order to satisfy object
+     types, numeric vectors that should be converted to floats or long
+     on the Java side must be wrapped in this class. In addition
+     'jbyte' must be used when passing scalar byte (but not byte
+     arrays, those are mapped into RAW vectors). Finally 'jchar' it
+     used when mapping integer vectors into unicode Java character
+     vectors.
+
+_O_b_j_e_c_t_s _f_r_o_m _t_h_e _C_l_a_s_s:
+
+     Objects can be created by calling '.jfloat', '.jlong', '.jbyte' or
+     '.jchar' respectively.
+
+_S_l_o_t_s:
+
+     '._D_a_t_a': Payload
+
+_E_x_t_e_n_d_s:
+
+     "jfloat" and "jlong": Class '"numeric"', from data part. Class
+     '"vector"', by class '"numeric"'.
+
+     "jbyte" and "jchar": Class '"integer"', from data part. Class
+     '"vector"', by class '"integer"'.
+
+_M_e_t_h_o_d_s:
+
+     "jfloat" and "jlong" have no methods other than those inherited
+     from "numeric". "jbyte" and "jchar" have no methods other than
+     those inherited from "integer".
+
+_A_u_t_h_o_r(_s):
+
+     Simon Urbanek
+
+_S_e_e _A_l_s_o:
+
+     '.jfloat', '.jlong', '.jbyte', '.jchar' and '.jcall'
+

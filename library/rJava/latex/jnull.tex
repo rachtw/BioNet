@@ -1,0 +1,61 @@
+\HeaderA{jnull}{Java null object reference}{jnull}
+\aliasA{.jnull}{jnull}{.jnull}
+\aliasA{is.jnull}{jnull}{is.jnull}
+\keyword{interface}{jnull}
+\begin{Description}\relax
+\code{.jnull} returns a \code{null} reference of a specified class
+type. The resulting object is of the class \code{jobjRef}.
+
+\code{is.jnull} is an extension of \code{is.null} that also returns
+\code{TRUE} if the supplied object it a \code{null} Java reference.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+.jnull(class = "java/lang/Object")
+is.jnull(x)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{class}] fully qualified target class name in JNI notation
+(e.g. \code{"java/lang/String"}).
+\item[\code{x}] object to check
+\end{ldescription}
+\end{Arguments}
+\begin{Details}\relax
+\code{.jnull} is necesary if \code{null} is to be passed as an
+argument of \code{\LinkA{.jcall}{.jcall}} or \code{\LinkA{.jnew}{.jnew}}, in order to be
+able to find the correct method/constructor.
+
+Example: given the following method definitions of the class \code{A}:
+\Itemize{
+\item[o] public static void run(String a);
+\item[o] public static void run(Double n);
+}
+Calling \code{.jcall("A",{},"run",NULL)} is ambiguous, because it is
+unclear which method is to be used. Therefore rJava requires class
+information with each argument to \code{\LinkA{.jcall}{.jcall}}. If we wanted
+to run the String-version, we could use
+\code{.jcall("A",{},"run",.jnull("java/lang/String"))}.
+
+\code{is.jnull} is a test that should be used to determine \code{null}
+reference.
+\end{Details}
+\begin{Value}
+\code{.jnull} returns a Java object reference (\code{jobjRef}) of a
+\code{null} object having the specified object class.
+
+\code{is.jnull} returns \code{TRUE} if \code{is.null(x)} is
+\code{TRUE} or if \code{x} is a Java \code{null} reference.
+\end{Value}
+\begin{SeeAlso}\relax
+\code{\LinkA{.jcall}{.jcall}}, \code{\LinkA{.jcast}{.jcast}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+.jcall("java/lang/System","I","identityHashCode",.jnull())
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+

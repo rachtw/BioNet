@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Field/method operator for Java objects</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="../../R.css">
+</head><body>
+
+<table width="100%" summary="page for JavaAccess {rJava}"><tr><td>JavaAccess {rJava}</td><td align="right">R Documentation</td></tr></table>
+<h2>Field/method operator for Java objects</h2>
+
+
+<h3>Description</h3>
+
+<p>
+The <code>$</code> operator for <code>jobjRef</code> Java object references provides convenience access to object attributes and calling Java methods.
+</p>
+
+
+<h3>Details</h3>
+
+<p>
+rJava provies two levels of API: low-level JNI-API in the form of <code><a href="jcall.html">.jcall</a></code> function and high-level reflection API based on the <code>$</code> operator. The former is very fast, but inflexible. The latter is a convenient way to use Java-like programming at the cost of performance. The reflection API is build around the <code>$</code> operator on <code><a href="jobjRef-class.html">jobjRef-class</a></code> objects that allows to access Java attributes and call object methods.
+</p>
+<p>
+<code>$</code> returns either the value of the attribute or calls a method, depending on which name matches first.
+</p>
+<p>
+<code>$&lt;-</code> assigns a value to the corresponding Java attribute.
+</p>
+<p>
+This is just a convenience API. Internally all calls are mapped into <code><a href="jcall.html">.jcall</a></code> calls, therefore the calling conventions and returning objects use the smae rules. For time-critical Java calls <code><a href="jcall.html">.jcall</a></code> should be used directly.
+</p>
+<p>
+NOTE: This interface is still very experimental! Some type conversions may not work or it may fail to find the method you want. You may need to use <code><a href="jcall.html">.jcall</a></code>, consult <code><a href="jreflection.html">.jmethods</a></code>, <code><a href="jreflection.html">.jfields</a></code> and possibly apply <code><a href="jcast.html">.jcast</a></code> in such cases. If it is a general problem, please report such issues whith a small reproducible example.
+</p>
+
+
+<h3>Methods</h3>
+
+<dl>
+<dt><code>$</code></dt><dd><code>signature(x = "jobjRef")</code>: ... </dd>
+<dt><code>$&lt;-</code></dt><dd><code>signature(x = "jobjRef")</code>: ... </dd>
+</dl>
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="jcall.html">.jcall</a></code>, <code><a href="jnew.html">.jnew</a></code>, <code><a href="jobjRef-class.html">jobjRef-class</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+v &lt;- .jnew("java/lang/String","Hello World!")
+v$length()
+v$indexOf("World")
+## End(Not run)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>rJava</em> version 0.4-12 <a href="00Index.html">Index]</a></div>
+
+</body></html>

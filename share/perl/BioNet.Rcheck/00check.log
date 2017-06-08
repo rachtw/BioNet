@@ -1,0 +1,57 @@
+* using log directory 'E:/R/R-2.4.1beta/share/perl/BioNet.Rcheck'
+* using R version 2.4.1 beta (2006-12-07 r40137)
+* checking for file 'BioNet/DESCRIPTION' ... OK
+* checking extension type ... Package
+* this is package 'BioNet' version '1.0'
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking whether package 'BioNet' can be installed ... OK
+* checking package directory ... OK
+* checking for portable file names ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking index information ... WARNING
+Empty or missing file 'demo/00Index'.
+See the information on INDEX files and package subdirectories in the
+chapter 'Creating R packages' of the 'Writing R Extensions' manual.
+* checking package subdirectories ... OK
+* checking R files for syntax errors ... OK
+* checking R files for non-ASCII characters ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... WARNING
+Rd files with likely Rd problems:
+Unaccounted top-level text in file 'E:/R/R-2.4.1beta/src/library/BioNet/man/BioNet-package.Rd':
+Following section 'references':
+"\n~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R ~~\n~~ documentation directory ~~\n"
+
+See the chapter 'Writing R documentation files' in manual 'Writing R
+Extensions'.
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  bionet.adjacency.matrix bionet.closeness
+  bionet.clustering.coefficient bionet.degree bionet.diameter
+  bionet.distance bionet.double.log.ecdf.plot bionet.eccentricity
+  bionet.generate.exponential.distributed.degrees
+  bionet.generate.power.law.distributed.degrees
+  bionet.get.neighbors.by.distance.index
+  bionet.get.neighbors.by.distance.name bionet.get.num.edges
+  bionet.get.num.vertices bionet.get.shortest.path.by.index
+  bionet.get.shortest.path.by.name bionet.get.vertex.betweenness
+  bionet.get.vertex.by.index bionet.get.vertices
+  bionet.get.vertices.by.degree bionet.get.vertices.by.indices
+  bionet.graph.centrality bionet.harmonic.mean.shortest.distance
+  bionet.hist.with.exp.bins bionet.init bionet.mean.shortest.distance
+  bionet.new.random bionet.nodes.of.top.measures bionet.num.triangles
+  bionet.open bionet.radiality bionet.radius bionet.save
+  bionet.WS.clustering.coefficient
+All user-level objects in a package should have documentation entries.
+See the chapter 'Writing R documentation files' in manual 'Writing R
+Extensions'.
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK

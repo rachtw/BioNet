@@ -1,0 +1,54 @@
+JavaAccess               package:rJava               R Documentation
+
+_F_i_e_l_d/_m_e_t_h_o_d _o_p_e_r_a_t_o_r _f_o_r _J_a_v_a _o_b_j_e_c_t_s
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     The '$' operator for 'jobjRef' Java object references provides
+     convenience access to object attributes and calling Java methods.
+
+_D_e_t_a_i_l_s:
+
+     rJava provies two levels of API: low-level JNI-API in the form of
+     '.jcall' function and high-level reflection API based on the '$'
+     operator. The former is very fast, but inflexible. The latter is a
+     convenient way to use Java-like programming at the cost of
+     performance. The reflection API is build around the '$' operator
+     on 'jobjRef-class' objects that allows to access Java attributes
+     and call object methods.
+
+     '$' returns either the value of the attribute or calls a method,
+     depending on which name matches first.
+
+     '$<-' assigns a value to the corresponding Java attribute.
+
+     This is just a convenience API. Internally all calls are mapped
+     into '.jcall' calls, therefore the calling conventions and
+     returning objects use the smae rules. For time-critical Java calls
+     '.jcall' should be used directly.
+
+     NOTE: This interface is still very experimental! Some type
+     conversions may not work or it may fail to find the method you
+     want. You may need to use '.jcall', consult '.jmethods',
+     '.jfields' and possibly apply '.jcast' in such cases. If it is a
+     general problem, please report such issues whith a small
+     reproducible example.
+
+_M_e_t_h_o_d_s:
+
+     '$' 'signature(x = "jobjRef")': ... 
+
+     '$<-' 'signature(x = "jobjRef")': ... 
+
+_S_e_e _A_l_s_o:
+
+     '.jcall', '.jnew', 'jobjRef-class'
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     v <- .jnew("java/lang/String","Hello World!")
+     v$length()
+     v$indexOf("World")
+     ## End(Not run)
+

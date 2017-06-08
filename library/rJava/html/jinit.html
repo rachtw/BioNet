@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Initialize Java VM</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="../../R.css">
+</head><body>
+
+<table width="100%" summary="page for jinit {rJava}"><tr><td>jinit {rJava}</td><td align="right">R Documentation</td></tr></table>
+<h2>Initialize Java VM</h2>
+
+
+<h3>Description</h3>
+
+<p>
+<code>.jinit</code> initializes the Java Virtual Machine (JVM). This
+function must be called before any rJava functions can be used.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+.jinit(classpath = NULL, parameters = NULL, ..., silent = FALSE)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>classpath</code></td>
+<td>
+Any additional classes to include in the Java class
+paths (i.e. locations of Java classes to use). This path will be
+prepended to paths specified in the <code>CLASSPATH</code> environment
+variable.</td></tr>
+<tr valign="top"><td><code>parameters</code></td>
+<td>
+character vector of parameters to be passed to
+the virtual machine. They are implementation dependent and apply
+to JDK version 1.2 or higher only. Please note that each parameter
+must be in a separate element of the array, you cannot use a
+space-separated string with multiple parameters.</td></tr>
+<tr valign="top"><td><code>...</code></td>
+<td>
+Other optional Java initialization parameters (implementation-dependent).</td></tr>
+<tr valign="top"><td><code>silent</code></td>
+<td>
+If set to <code>TRUE</code> no warnings are issued.</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+Stating with version 0.3-8 rJava is now capable of modifying the class
+path on the fly for certain Sun-based Java virtual machines, even when
+attaching to an existing VM. However, this is done by exploiting the
+way ClassLoader is implemented and may fail in the future. In general
+it is officially not possible to change the class path of a running
+VM.
+</p>
+<p>
+At any rate, it is impossible to change any other VM parameters of a
+running VM, so when using <code>.jinit</code> in a package, be generous with
+limits and don't use VM parameters to unnecessarily restrict
+resources.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+The return value is an integer specifying whether and how the VM was
+initialized. Negative values indicate failure, zero denotes successful
+initialization and positive values signify partially successful
+initilization (i.e. the VM is up, but parameters or class path could
+not be set due to an existing or incompatible VM).</p>
+
+<h3>See Also</h3>
+
+
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+## set heap size limit to 512MB (see java -X) and
+## use "myClasses.jar" as the class path
+.jinit(classpath="myClasses.jar", parameters="-Xmx512m")
+## End(Not run)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>rJava</em> version 0.4-12 <a href="00Index.html">Index]</a></div>
+
+</body></html>

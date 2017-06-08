@@ -1,0 +1,46 @@
+\HeaderA{jsimplify}{Converts Java object to a simple scalar if possible}{jsimplify}
+\aliasA{.jsimplify}{jsimplify}{.jsimplify}
+\keyword{interface}{jsimplify}
+\begin{Description}\relax
+\code{.jsimplify} attempts to convert Java objects that represent
+simple scalars into corresponding scalar representation in R.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+.jsimplify(o)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{o}] arbitrary object
+\end{ldescription}
+\end{Arguments}
+\begin{Details}\relax
+If \code{o} is not a Java object reference, \code{o} is returned
+as-is. If \code{o} is a reference to a scalar object (such as single
+integer, number, string or boolean) then the value of that object is
+returned as R vector of the corresponding type and length one.
+
+This function is used by \code{\LinkA{.jfield}{.jfield}} to simplify the results
+of field access if required.
+
+Currently there is no function inverse to this, the usual way to wrap
+scalar values in Java references is to use \code{\LinkA{.jnew}{.jnew}} as the
+corresponding constructor.
+\end{Details}
+\begin{Value}
+Simple scalar or \code{o} unchanged.
+\end{Value}
+\begin{SeeAlso}\relax
+\code{\LinkA{.jfield}{.jfield}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+i <- .jnew("java/lang/Integer", as.integer(10))
+print(i)
+print(.jsimplify(i))
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+

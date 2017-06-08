@@ -1,0 +1,38 @@
+jarrayRef-class            package:rJava            R Documentation
+
+_C_l_a_s_s "_j_a_r_r_a_y_R_e_f" _R_e_f_e_r_e_n_c_e _t_o _a_n _a_r_r_a_y _J_a_v_a _o_b_j_e_c_t
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     This class is a subclass of jobjRef-class and represents a
+     reference to an array Java object.
+
+_O_b_j_e_c_t_s _f_r_o_m _t_h_e _C_l_a_s_s:
+
+     Objects cannot be created directly, but only as the retun value of
+     '.jcall' function.
+
+_S_l_o_t_s:
+
+     '_j_s_i_g': JNI signature of the array type
+
+     '_j_o_b_j': Internal identifier of the object
+
+     '_j_c_l_a_s_s': Inherited from 'jobjRef', but unspeficied
+
+_E_x_t_e_n_d_s:
+
+     Class '"jobjRef"', directly.
+
+_M_e_t_h_o_d_s:
+
+     No methods defined with class "jarrayRef" in the signature.
+
+_A_u_t_h_o_r(_s):
+
+     Simon Urbanek
+
+_S_e_e _A_l_s_o:
+
+     '.jcall' or 'jobjRef-class'
+

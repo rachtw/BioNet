@@ -1,0 +1,19 @@
+Package: BioNet
+Type: Package
+Title: An R package for the analysis of biological molecular networks
+Version: 1.0
+Date: 2006-12-13
+Author: Mu-Fen Hsieh
+Maintainer: Mu-Fen Hsieh <mufen@tamu.edu>
+Depends: R (>= 2.4.0), rJava
+Description: BioNet is a programming library for analyzing biological
+        molecular networks in R environment. It provides means of both
+        calculating classical network measures and searching for
+        vertices, paths or network motif of recent interests. Random
+        networks can be generated seperately for comparing with real
+        biological networks. This tool helps the integration of network
+        methods for biological networks and existent statistical
+        functionalities in R.
+License: GPL version 2 or newer
+URL: http://students.cs.tamu.edu/mufen/bionet/
+Built: R 2.4.1; ; 2006-12-14 05:57:26; windows

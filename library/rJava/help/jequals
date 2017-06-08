@@ -1,0 +1,92 @@
+jequals                package:rJava                R Documentation
+
+_C_o_m_p_a_r_i_n_g _J_a_v_a _R_e_f_e_r_e_n_c_e_s
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     '.jequals' function can be used to determine whether two objects
+     are equal. In addition, it allows mixed comparison of non-Java
+     object for convenience, unless strict comparison is desired.
+
+     The binary operators '==' and '!=' are mapped to (non-strict) call
+     to '.jequals' for convenience.
+
+_U_s_a_g_e:
+
+     .jequals(a, b, strict = FALSE)
+
+_A_r_g_u_m_e_n_t_s:
+
+       a: first object
+
+       b: second object
+
+  strict: when set to 'TRUE' then non-references save for 'NULL' are
+          always treated as different, see details.
+
+_D_e_t_a_i_l_s:
+
+     Comparing two Java objects is performed by calling 'equals' method
+     of one of the objects and passing the other object as its
+     argument. This allows Java objects to define the `equality' in
+     object-dependent way.
+
+     In addition, '.jequals' allows the comparison of Java object to
+     other scalar R objects. This is done by creating a temporary Java
+     object that corresponds to the R object and using it for a call to
+     the 'equals' method. If such conversion is not possible a warning
+     is produced and the result it 'FALSE'. The automatic conversion
+     will be avoided if 'strict' parameter is set to 'TRUE'.
+
+     'NULL' values in 'a' or 'b' are replaced by Java 'null'-references
+     and thus '.jequals(NULL,NULL)' is 'TRUE'.
+
+     If neither 'a' and 'b' are Java objects (with the exception of
+     both being 'NULL') then the result is identical to that of
+     'all.equal(a,b)'.
+
+     Neither comparison operators nor '.jequals' supports vectors and
+     returns 'FALSE' in that case. A warning is also issued unless
+     strict comparison was requested.
+
+_V_a_l_u_e:
+
+     'TRUE' if both object are considered equal, 'FALSE' otherwise.
+
+_M_e_t_h_o_d_s:
+
+     != 'signature(e1 = "ANY", e2 = "jobjRef")': ... 
+
+     != 'signature(e1 = "jobjRef", e2 = "jobjRef")': ... 
+
+     != 'signature(e1 = "jobjRef", e2 = "ANY")': ... 
+
+     == 'signature(e1 = "ANY", e2 = "jobjRef")': ... 
+
+     == 'signature(e1 = "jobjRef", e2 = "jobjRef")': ... 
+
+     == 'signature(e1 = "jobjRef", e2 = "ANY")': ... 
+
+_N_o_t_e:
+
+     Don't use 'x == NULL' to check for 'null'-references, because 'x'
+     could be 'NULL' and thus the result would be an empty vector. Use
+     'is.jnull' instead. (In theory 'is.jnull' and 'x == .jnull()' are
+     the the same, but 'is.jnull' is more efficient.)
+
+_S_e_e _A_l_s_o:
+
+     'is.jnull'
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     s <- .jnew("java/lang/String", "foo")
+     .jequals(s, "foo") # TRUE
+     .jequals(s, "foo", strict=TRUE) # FALSE - "foo" is not a Java object
+     t <- s
+     .jequals(s, t, strict=TRUE) # TRUE
+
+     s=="foo" # TRUE
+     ## End(Not run)
+

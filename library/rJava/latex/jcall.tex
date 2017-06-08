@@ -1,0 +1,85 @@
+\HeaderA{jcall}{Call a Java method}{jcall}
+\aliasA{.jcall}{jcall}{.jcall}
+\keyword{interface}{jcall}
+\begin{Description}\relax
+\code{.jcall} calls a Java method with the supplied arguments.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+.jcall(obj, returnSig = "V", method, ..., evalArray = TRUE, 
+    evalString = TRUE, check = TRUE, interface = "RcallMethod")
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{obj}] Java object (\code{jobjRef} as returned by
+\code{\LinkA{.jcall}{.jcall}} or \code{\LinkA{.jnew}{.jnew}}) or fully qualified
+class name in JNI notation (e.g. \code{"java/lang/String"}).
+\item[\code{returnSig}] Return signature in JNI notation (e.g. "V" for void,
+"[I" for \code{int[]} etc.). For convenience additional type
+\code{"S"} is supported and expanded to
+\code{"Ljava/lang/String;"}, re-mapping \code{"T"} to represent the
+type \code{short}.
+\item[\code{method}] The name of the method to be called
+\item[\code{...}] Any parametes that will be passed to the Java method. The parameter
+types are determined automatically and/or taken from the
+\code{jobjRef} object. All named parameters are discarded.
+\item[\code{evalArray}] This flag determines whether the array return value
+is evaluated (\code{TRUE}) or passed back as Java object reference
+(\code{FALSE}).
+\item[\code{evalString}] This flag determines whether string result is returned
+as characters or as Java object reference.
+\item[\code{check}] If set to \code{TRUE} then checks for exceptions are
+performed before and after the call using
+\code{\LinkA{.jcheck}{.jcheck}(silent=FALSE)}. This is usually the desired
+behavior, because all calls fail until an expection is cleared.
+\item[\code{interface}] This option is experimental and specifies the
+interface used for calling the Java method; the current
+implementation supports two interfaces:
+\Itemize{
+\item[\code{"RcallMethod"}] the default interface.
+\item[\code{"RcallSyncMethod"}] synchronized call of a
+method. This has simmilar effect as using \code{synchronize} in
+Java.
+}
+
+\end{ldescription}
+\end{Arguments}
+\begin{Details}\relax
+\code{.jcall} requires exact match of argument and return types. For
+higher efficiency \code{.jcall} doens't perform any lookup in the
+reflection tables. This means that passing subclasses of the classes
+present in the method definition requires explicit casting using
+\code{\LinkA{.jcast}{.jcast}}. Passing \code{null} arguments also needs a
+proper class specification with \code{\LinkA{.jnull}{.jnull}}.
+
+Java types \code{long} and \code{float} have no corresponding types in
+R and therefore any such parameters must be flagged as such using
+\code{\LinkA{.jfloat}{.jfloat}} and \code{\LinkA{.jlong}{.jlong}} functions respectively.
+
+Java also distinguishes scalar and array types whereas R doesn't have
+the concept of a scalar. In R a scalar is basically a vector (called
+array in Java-speak) of the length 1. Therefore passing vectors of the
+length 1 is ambiguous. \code{.jcall} assumes that any vector of the
+length 1 that corresponds to a native Java type is a scalar. All other
+vectors are passed as arrays. Therefore it is important to use
+\code{\LinkA{.jarray}{.jarray}} if an arbitrary vector (including those of the
+length 1) is to be passed as an array parameter.
+\end{Details}
+\begin{Value}
+Returns the result of the method.
+\end{Value}
+\begin{SeeAlso}\relax
+\code{\LinkA{.jnew}{.jnew}}, \code{\LinkA{.jcast}{.jcast}}, \code{\LinkA{.jnull}{.jnull}},
+\code{\LinkA{.jarray}{.jarray}}
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+.jcall("java/lang/System","S","getProperty","os.name")
+f <- .jnew("java/awt/Frame","Hello")
+.jcall(f,,"setVisible",TRUE)
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+

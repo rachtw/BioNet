@@ -1,0 +1,59 @@
+\HeaderA{jinit}{Initialize Java VM}{jinit}
+\aliasA{.jinit}{jinit}{.jinit}
+\keyword{interface}{jinit}
+\begin{Description}\relax
+\code{.jinit} initializes the Java Virtual Machine (JVM). This
+function must be called before any rJava functions can be used.
+\end{Description}
+\begin{Usage}
+\begin{verbatim}
+.jinit(classpath = NULL, parameters = NULL, ..., silent = FALSE)
+\end{verbatim}
+\end{Usage}
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{classpath}] Any additional classes to include in the Java class
+paths (i.e. locations of Java classes to use). This path will be
+prepended to paths specified in the \code{CLASSPATH} environment
+variable.
+\item[\code{parameters}] character vector of parameters to be passed to
+the virtual machine. They are implementation dependent and apply
+to JDK version 1.2 or higher only. Please note that each parameter
+must be in a separate element of the array, you cannot use a
+space-separated string with multiple parameters.
+\item[\code{...}] Other optional Java initialization parameters (implementation-dependent).
+\item[\code{silent}] If set to \code{TRUE} no warnings are issued.
+\end{ldescription}
+\end{Arguments}
+\begin{Details}\relax
+Stating with version 0.3-8 rJava is now capable of modifying the class
+path on the fly for certain Sun-based Java virtual machines, even when
+attaching to an existing VM. However, this is done by exploiting the
+way ClassLoader is implemented and may fail in the future. In general
+it is officially not possible to change the class path of a running
+VM.
+
+At any rate, it is impossible to change any other VM parameters of a
+running VM, so when using \code{.jinit} in a package, be generous with
+limits and don't use VM parameters to unnecessarily restrict
+resources.
+\end{Details}
+\begin{Value}
+The return value is an integer specifying whether and how the VM was
+initialized. Negative values indicate failure, zero denotes successful
+initialization and positive values signify partially successful
+initilization (i.e. the VM is up, but parameters or class path could
+not be set due to an existing or incompatible VM).
+\end{Value}
+\begin{SeeAlso}\relax
+\end{SeeAlso}
+\begin{Examples}
+\begin{ExampleCode}
+## Not run: 
+## set heap size limit to 512MB (see java -X) and
+## use "myClasses.jar" as the class path
+.jinit(classpath="myClasses.jar", parameters="-Xmx512m")
+## End(Not run)
+\end{ExampleCode}
+\end{Examples}
+

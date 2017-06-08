@@ -1,0 +1,48 @@
+jfiled                 package:rJava                 R Documentation
+
+_O_b_t_a_i_n_s _t_h_e _v_a_l_u_e _o_f _a _f_i_e_l_d
+
+_D_e_s_c_r_i_p_t_i_o_n:
+
+     '.jfield' returns the value of the specified field on an object.
+
+_U_s_a_g_e:
+
+     .jfield(o, name, simplify=TRUE, true.class=TRUE)
+
+_A_r_g_u_m_e_n_t_s:
+
+       o: Class name or object (Java reference) whose field is to be
+          accessed. Static fields are supported both by specifying the
+          class name or using an instance.
+
+    name: name of the field to access
+
+simplify: field accessor methods always return Java objects. If set to
+          'TRUE', such object will be converted to scalar type if
+          possible (see '.jsimplify').
+
+true.class: field accessor methods always return objects of the class
+          'java.lang.Object'. If set to 'TRUE', the true Java class is
+          determined and the returned object's class will be adjusted.
+
+_D_e_t_a_i_l_s:
+
+     '.jfield' uses reflection to access value of a field of a given
+     object.
+
+_V_a_l_u_e:
+
+     Contents of the field.
+
+_S_e_e _A_l_s_o:
+
+     '.jnew', '.jsimplify'
+
+_E_x_a_m_p_l_e_s:
+
+     ## Not run: 
+     z <- .jnew("java/lang/Boolean", TRUE)
+     .jfield(z, "TYPE")
+     ## End(Not run)
+

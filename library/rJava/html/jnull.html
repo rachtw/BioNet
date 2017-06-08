@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>R: Java null object reference</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="../../R.css">
+</head><body>
+
+<table width="100%" summary="page for jnull {rJava}"><tr><td>jnull {rJava}</td><td align="right">R Documentation</td></tr></table>
+<h2>Java null object reference</h2>
+
+
+<h3>Description</h3>
+
+<p>
+<code>.jnull</code> returns a <code>null</code> reference of a specified class
+type. The resulting object is of the class <code>jobjRef</code>.
+</p>
+<p>
+<code>is.jnull</code> is an extension of <code>is.null</code> that also returns
+<code>TRUE</code> if the supplied object it a <code>null</code> Java reference.
+</p>
+
+
+<h3>Usage</h3>
+
+<pre>
+.jnull(class = "java/lang/Object")
+is.jnull(x)
+</pre>
+
+
+<h3>Arguments</h3>
+
+<table summary="R argblock">
+<tr valign="top"><td><code>class</code></td>
+<td>
+fully qualified target class name in JNI notation
+(e.g. <code>"java/lang/String"</code>).</td></tr>
+<tr valign="top"><td><code>x</code></td>
+<td>
+object to check</td></tr>
+</table>
+
+<h3>Details</h3>
+
+<p>
+<code>.jnull</code> is necesary if <code>null</code> is to be passed as an
+argument of <code><a href="jcall.html">.jcall</a></code> or <code><a href="jnew.html">.jnew</a></code>, in order to be
+able to find the correct method/constructor.
+</p>
+<p>
+Example: given the following method definitions of the class <code>A</code>:
+<ul>
+<dt>o</dt><dd>public static void run(String a);</dd>
+<dt>o</dt><dd>public static void run(Double n);</dd>
+</ul>
+<p>
+Calling <code>.jcall("A",,"run",NULL)</code> is ambiguous, because it is
+unclear which method is to be used. Therefore rJava requires class
+information with each argument to <code><a href="jcall.html">.jcall</a></code>. If we wanted
+to run the String-version, we could use
+<code>.jcall("A",,"run",.jnull("java/lang/String"))</code>.
+</p>
+<p>
+<code>is.jnull</code> is a test that should be used to determine <code>null</code>
+reference.
+</p>
+
+
+<h3>Value</h3>
+
+<p>
+<code>.jnull</code> returns a Java object reference (<code>jobjRef</code>) of a
+<code>null</code> object having the specified object class.
+<br>
+<code>is.jnull</code> returns <code>TRUE</code> if <code>is.null(x)</code> is
+<code>TRUE</code> or if <code>x</code> is a Java <code>null</code> reference.</p>
+
+<h3>See Also</h3>
+
+<p>
+<code><a href="jcall.html">.jcall</a></code>, <code><a href="jcast.html">.jcast</a></code>
+</p>
+
+
+<h3>Examples</h3>
+
+<pre>
+## Not run: 
+.jcall("java/lang/System","I","identityHashCode",.jnull())
+## End(Not run)
+</pre>
+
+
+
+<hr><div align="center">[Package <em>rJava</em> version 0.4-12 <a href="00Index.html">Index]</a></div>
+
+</body></html>
